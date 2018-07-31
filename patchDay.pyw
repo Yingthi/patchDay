@@ -4,76 +4,82 @@ from tkinter.font import Font
 from random import *
 from tkinter import filedialog
 
-#this is the user interface for PatchDay!
+# PatchDay HRT Software
+# by Juliya Smith
+# 2016
 
-#display string dict. this is what comes to screen
-ptDict = {1:"Have you changed it?",
-       2:"You could always add your email later.",
-       3:"Would you not like me to ask again?",
-       4:"Would you like to enter one?",
-       5:"You don't have an email on file.",
-       6:"Okay, I won't ask again...",
-       7:"Fine then :)",
-       8:"Schedule emailed!",
-       9:"Current Patches: ",
-       10:"Enter your email at the bottom.",
-       11:"Click 'Enter' to upload patch data...",
-       12:"Click 'Finish' when you're done entering all your current patch data and are ready to move on...",
-       13:"Email saved into system! PatchDay is ready to use.",
-       14:"Welcome to PatchDay!  PatchDay is a schedule optimizer for medicinal patches.  Please see README!",
-       15:"Patch Updated!",
-       16:"Enter patch data to intitiate PatchDay scheduling: ",
-       17:"(part of body, left side or right side" + '\n' + "day of week, year, month num, day num)",
-       18:"[Follow this rubric (including commas)]: ",
-       19:"Stom,L,Sunday,12:35,2016,8,28",
-       20:"Entry added!",
-       21:"Done entering . . . PatchDay is now usable. " +
+# PatchDay Strings
+pdStrs = ["Have you changed it?",
+       "You could always add your email later.",
+       "Would you not like me to ask again?",
+       "Would you like to enter one?",
+       "You don't have an email on file.",
+       "Okay, I won't ask again...",
+       "Fine then :)",
+       "Schedule emailed!",
+       "Current Patches: ",
+       "Enter your email at the bottom.",
+       "Click 'Enter' to upload patch data...",
+       "Click 'Finish' when you're done entering all your current patch data and are ready to move on...",
+       "Email saved into system! PatchDay is ready to use.",
+       "Welcome to PatchDay!  PatchDay is a schedule optimizer for medicinal patches.  Please see README!",
+       "Patch Updated!",
+       "Enter patch data to intitiate PatchDay scheduling: ",
+       "(part of body, left side or right side" + '\n' + "day of week, year, month num, day num)",
+       "[Follow this rubric (including commas)]: ",
+       "Stom,L,Sunday,12:35,2016,8,28",
+       "Entry added!",
+       "Done entering . . . PatchDay is now usable. " +
           "Click 'NotPatchDay' to see schedule and get a reminder. " +
           "Click 'PatchDay' to automatically update your patch. " +
           "(you won't have to enter hard-data ever again!)",
-       23:"Click 'Save' to upload your email...",
-       24:"**************************",
-       25:"Entry is not good!  Check your formatting!",
-       26:"Are you sure you want to create a new schedule?" + '\n' +
+       "Click 'Save' to upload your email...",
+       "**************************",
+       "Entry is not good!  Check your formatting!",
+       "Are you sure you want to create a new schedule?" + '\n' +
           "This will erase your previous patch data.",
-       27:"You're schedule has been cleared...",
-       28:"Optimize mode optimizes the location to put your next patch." + '\n'
+       "You're schedule has been cleared...",
+       "Optimize mode optimizes the location to put your next patch." + '\n'
           "Would you like to turn 'on' Optimize?",
-       29:"Optimize is now on!",
-       30:"Optimize is now off!",
-       31:"Optimize mode optimizes the location to put your next patch." + '\n'
+       "Optimize is now on!",
+       "Optimize is now off!",
+       "Optimize mode optimizes the location to put your next patch." + '\n'
           "Would you like to turn 'off' Optimize?",
-       32:"Would you like to remove your email from Patch Day?",
-       33:"Email removed!",
-       34:"It's okay, there is no email on record.",
-       35:"Not enough backlog to turn on optimize yet." + '\n'
+       "Would you like to remove your email from Patch Day?",
+       "Email removed!",
+       "It's okay, there is no email on record.",
+       "Not enough backlog to turn on optimize yet." + '\n'
           "Continuing using PatchDay and and you will soon have this feature.",
-       36:"Optimize mode is a key feature of PatchDay," + '\n'
+       "Optimize mode is a key feature of PatchDay," + '\n'
           "It will determine the optimal places to put your next patch," + '\n'
           "The Optimize feature activates a one-click patch change system." + '\n'
           "Otherwise, you just have to enter some data manually each time.",
-       37:"Where did you place your new patch?(L/R)(Stom/Butt)" + '\n' +
+       "Where did you place your new patch?(L/R)(Stom/Butt)" + '\n' +
           "Enter in the following format: ",
-       38:"Stom,L",
-       39:"No changes made to the Optimization feature.",
-       40:"This is the number of patches you have changed with PatchDay...",
-       41:"Are you sure you want to permanently delete your history of patches?",
-       42:"Backlog has been cleared."
-        }
+       "Stom,L",
+       "No changes made to the Optimization feature.",
+       "This is the number of patches you have changed with PatchDay...",
+       "Are you sure you want to permanently delete your history of patches?",
+       "Backlog has been cleared."
+        ]
 
-starDict = {
-       1:"'Is it..?' or 'is it not..?' Patch Day..." + '\n'
+welcomeStrs = [
+       "'Is it..?' or 'is it not..?' Patch Day..." + '\n'
           "That's my question...",
-       2:"Welcome friend ... is it Patch Day?",
-       3:"So is it patch day today or what? What's up?",
-       4:"Welcome to your favorite patch medication software!!! Woot!!!",
-       5:"How many ways can we say PATCH DAY!!!",
-       6:"It's more than just 'Patch Day'... it's whatever you make it!",
-       7:"If it's Patch Day and you know it, click some buttons..." + '\n'
+       "Welcome friend ... is it Patch Day?",
+       "So is it patch day today or what? What's up?",
+       "Welcome to your favorite patch medication software!!! Woot!!!",
+       "How many ways can we say PATCH DAY!!!",
+       "It's more than just 'Patch Day'... its whatever you make it!",
+       "If it's Patch Day and you know it, click some buttons..." + '\n'
          "If it's Patch Day and you know it, click some buttons..." + '\n'
          "... Okay, I'll stop ...",
-       8:"Gooooooood Morniiiing PATCHDAY!!!"
-          }
+       "Gooooooood Morniiiing PATCHDAY!!!"
+          ]
+
+
+mypink = "#ffe6ff"
+myblack = "#000000"
 
 #this is the front-end for PatchDay!
 
@@ -121,13 +127,14 @@ class Application(Frame):
         tearoff=0, background='#ffe6ff',
         foreground='black', activebackground='#99e699',
         activeforeground='black')
-
         #determine if optimize of on or off for display
         olab = self.optipowerOlab()
         self.optipowerDis(olab)
-        
         self.menubar.add_cascade(label="Switches",
         menu=self.switchesmenu)
+        self.switchesmenu.add_separator()
+        #background data grab
+        self.switchBackgroundMenu()
         
         #patch buttons
         self.npdB = Button(self)
@@ -136,9 +143,8 @@ class Application(Frame):
         self.pdB.grid(row=1,column=0)
 
         #text display area
-        self.ptext = Text(self,width=70,height=15,bg="#ffe6ff",
-        undo=True,wrap='word')
-        self.ptext.grid(row=3,column=0)
+        self.ptext = 0
+        self.makePtext()
 
         #text tags
         self.ptext.tag_add('important', END)
@@ -165,6 +171,24 @@ class Application(Frame):
         self.entry = Entry(self,width=45)
         self.entry.grid(row=6,column=0)
 
+    def switchBackgroundMenu(self):
+        bg = self.readBackgroundColor()
+        
+        self.switchesmenu.add_command(label="Change Theme",
+            command=self.changeBackground)
+
+    def changeBackground(self):
+        bg = self.readBackgroundColor();
+        bgdata = open('backgroundcolor.csv','w')
+        if bg == myblack:
+            bgdata.write(mypink)
+        else:
+            bgdata.write(myblack)
+        bgdata.close()
+        self.patchAppStart()
+        i = randint(0,7)
+        app.disText(welcomeStrs[i],sB=False) 
+
     def disText(self, text,sB=True,sA=True):
         #boolean for displaying space before
         if sB == True:
@@ -184,9 +208,8 @@ class Application(Frame):
             self.disText(str(patch),sB=False)
 
     def disExText(self,i):
-        self.ptext.insert(END,'\n')
-        #tag for important text
-        self.ptext.insert(END, ptDict[i], ("important"))
+        self.ptext.insert(END,'\n')        #tag for important text
+        self.ptext.insert(END, pdStrs[i], ("important"))
         self.ptext.insert(END,'\n')
         
     def patchAppStart(self):
@@ -208,6 +231,8 @@ class Application(Frame):
         self.no["state"] = DISABLED
 
         self.entry["state"] = DISABLED
+
+        self.makePtext()
 
         #on conditions where these are left DISABLED
         self.filemenu.entryconfig("Change/Add Email", state="normal")
@@ -244,6 +269,29 @@ class Application(Frame):
         except FileNotFoundError:
             return None
 
+    def readBackgroundColor(self):
+        try:
+            backgroundcolor = open("backgroundcolor.csv",'r')
+            #if its empty file
+            try:
+                bglines =backgroundcolor.readlines()
+                bg = bglines[0]
+                return bg
+            except IndexError:
+                return None
+        except FileNotFoundError:
+            return None
+
+    def makePtext(self):
+        bgC = self.readBackgroundColor()
+        if bgC == "#000000":
+            fg = "#FFFFFF"
+        else:
+            fg = "#000000"
+        self.ptext = Text(self,width=70,height=15,bg=bgC,
+        undo=True,wrap='word',foreground=fg)
+        self.ptext.grid(row=3,column=0)
+
     def start_up(self):
         self.pdB["state"] = DISABLED
         self.npdB["state"] = DISABLED
@@ -256,13 +304,13 @@ class Application(Frame):
         self.yes["text"] = 'Enter'
         self.no["text"] = 'Finish'
 
-        self.disText(ptDict[14],sB=False)
-        self.disText(ptDict[16],sA=False)
-        self.disText(ptDict[18])
-        self.disExText(19)
-        self.disText(ptDict[17])
-        self.disText(ptDict[11])
-        self.disText(ptDict[12],sB=False)
+        self.disText(pdStrs[13],sB=False)
+        self.disText(pdStrs[15],sA=False)
+        self.disText(pdStrs[17])
+        self.disExText(18)
+        self.disText(pdStrs[16])
+        self.disText(pdStrs[10])
+        self.disText(pdStrs[11],sB=False)
 
         self.yes["command"] = self.grabEntr
         
@@ -274,7 +322,7 @@ class Application(Frame):
         self.entry["state"] = NORMAL
 
     def newSchedule_prompt(self):
-        self.disText(ptDict[26])
+        self.disText(pdStrs[25])
         self.no["state"] = ACTIVE
         self.yes["state"] = ACTIVE
         self.no["text"] = 'No'
@@ -285,8 +333,8 @@ class Application(Frame):
 
     def changeEmail_prompt(self):
         #happens when click add/change email at the top
-        self.disText(ptDict[10])
-        self.disText(ptDict[23])
+        self.disText(pdStrs[9])
+        self.disText(pdStrs[22])
         self.yes["text"] = 'Save'
         self.yes["command"] = self.changeEmail
         
@@ -304,8 +352,8 @@ class Application(Frame):
             self.s.change_email()
 
             #refresh entry text
-            self.disText(ptDict[24])
-            self.disText(ptDict[13])
+            self.disText(pdStrs[23])
+            self.disText(pdStrs[12])
             self.entry.delete(0, 'end')
             self.entry["state"] = DISABLED
             self.yes["state"] = DISABLED
@@ -317,7 +365,7 @@ class Application(Frame):
     def optimize_mode_prompt1(self):
         #happens in after start up and email trouble
         #for asking user if they want an optimized schedule
-        self.disText(ptDict[36])
+        self.disText(pdStrs[35])
         self.optimize_mode_prompt()
 
         #create to a file to remember asking this prompt
@@ -329,10 +377,10 @@ class Application(Frame):
         #happens from hitting 'Optimize' in switches drop down menu
         #offers you to turn optimize mode on
         if self.s.optimized == True:
-            self.disText(ptDict[31])
+            self.disText(pdStrs[30])
         else:
-            self.disText(ptDict[28])
-        self.disText(ptDict[24])
+            self.disText(pdStrs[27])
+        self.disText(pdStrs[23])
         
         self.yes["text"] = 'Yes'
         self.yes["command"] = self.toggleOptimize
@@ -346,9 +394,9 @@ class Application(Frame):
         self.npdB["state"] = DISABLED
 
     def locnlor_entry_prompt(self):
-        self.disText(ptDict[37])
-        self.disExText(38)
-        self.disText(ptDict[11])
+        self.disText(pdStrs[36])
+        self.disExText(37)
+        self.disText(pdStrs[10])
         
         self.entry['state'] = NORMAL
         self.yes['state'] = ACTIVE
@@ -361,7 +409,7 @@ class Application(Frame):
 
     def removeEmail_prompt(self):
         #happens when you clikc "Remove Email"
-        self.disText(ptDict[32])
+        self.disText(pdStrs[31])
         self.yes["state"] = ACTIVE
         self.no["state"] = ACTIVE
         self.yes["text"] = 'Yes'
@@ -375,7 +423,7 @@ class Application(Frame):
 
     def clearBacklog_prompt(self):
         #happens when you click "Clear Backlog"
-        self.disText(ptDict[41])
+        self.disText(pdStrs[40])
         self.yes["state"] = ACTIVE
         self.no["state"] = ACTIVE
         self.yes["text"] = 'Yes'
@@ -387,7 +435,7 @@ class Application(Frame):
         #writes an empty file in place of backlog
         backlog = open('backlog.csv','w')
         backlog.close()
-        self.disText(ptDict[42])
+        self.disText(pdStrs[41])
         self.s.backlog_init()
 
         self.patchAppStart()
@@ -398,9 +446,9 @@ class Application(Frame):
     def toggleOptimize(self):
         self.s.switch_optimize()
         if self.s.optimized == True:
-            self.disText(ptDict[29])
+            self.disText(pdStrs[28])
         if self.s.optimized == False:
-            self.disText(ptDict[30])
+            self.disText(pdStrs[29])
             self.patchAppStart()
         olab = self.optipowerOlab()
         self.patchAppStart()
@@ -424,9 +472,9 @@ class Application(Frame):
         command=self.optimize_mode_prompt)
         
     def newSchedule(self):
-        self.disText(ptDict[24])
+        self.disText(pdStrs[23])
         #creates an empty datafile to replace old one
-        self.disText(ptDict[27])
+        self.disText(pdStrs[26])
         file = open('patchdata.csv','w')
         file.close()
 
@@ -440,8 +488,8 @@ class Application(Frame):
     def email_trouble(self):
         #if there is not email on file, this runs
         #it asks if you would to enter one
-        self.disText(ptDict[5])
-        self.disText(ptDict[4],sB=False)
+        self.disText(pdStrs[4])
+        self.disText(pdStrs[3],sB=False)
 
         self.yes["text"] = 'Yes'
         self.no["text"] = 'No'
@@ -466,7 +514,7 @@ class Application(Frame):
             file = open("patchdata.csv",'a')
             file.write(entry + '\n')
 
-            self.disText(ptDict[20])
+            self.disText(pdStrs[19])
             self.disText(entry)
 
             #turn other button on after first entry entered
@@ -475,8 +523,7 @@ class Application(Frame):
 
         #self.checkEntry is a series of queries
         else:
-            self.disText(ptDict[25])
-            self.disExText()
+            self.disText(pdStrs[24])
 
         #refresh entry text
         self.entry.delete(0, 'end')
@@ -499,8 +546,8 @@ class Application(Frame):
             #refresh entry text
             self.entry.delete(0, 'end')
             
-            self.disText(ptDict[13])
-            self.disText(ptDict[24])
+            self.disText(pdStrs[12])
+            self.disText(pdStrs[23])
             self.entry["state"] = DISABLED
             self.yes["state"] = DISABLED
             self.no["state"] = DISABLED
@@ -516,7 +563,7 @@ class Application(Frame):
 
         #if there is no '@' sign, it gets mad
         else:
-            self.disText(ptDict[25])
+            self.disText(pdStrs[24])
             self.entry.delete(0, 'end')
 
         #refresh entry text
@@ -528,10 +575,10 @@ class Application(Frame):
         self.entry.delete(0, 'end')
         if self.checkEntry_locnlor(self.optiEntry):
             self.changePatchUnOp()
-            self.disText(ptDict[20])
+            self.disText(pdStrs[19])
             self.patchAppStart()
         else:
-            self.disText(ptDict[25])
+            self.disText(pdStrs[24])
             self.locnlor_entry_prompt()
 
         #convenient time to email
@@ -614,7 +661,7 @@ class Application(Frame):
 
     def removeEmail(self):
         self.s.remove_email
-        self.disText(ptDict[33])
+        self.disText(pdStrs[32])
         self.patchAppStart()
     
     def done_entering(self):
@@ -627,9 +674,9 @@ class Application(Frame):
 
         #move on
         self.ready = self.determine_ready()
-        self.disText(ptDict[24])
-        self.disText(ptDict[21])
-        self.disText(ptDict[24])
+        self.disText(pdStrs[23])
+        self.disText(pdStrs[20])
+        self.disText(pdStrs[23])
         self.email_trouble()
 
     def savenewfile(self):
@@ -651,16 +698,16 @@ class Application(Frame):
     def ans_noEmF(self):
         #no, you don't want to enter email
         #but do you want to remove this question for next time?
-        self.disText(ptDict[3],sA=False)
-        self.disText(ptDict[2])
+        self.disText(pdStrs[2],sA=False)
+        self.disText(pdStrs[1])
         self.yes["command"] = self.ans_yesAsA
         
         self.no["command"] = self.ans_noAsA
 
     def ans_yesEmF(self):
         #yes you want to enter an email during start up
-        self.disText(ptDict[10])
-        self.disText(ptDict[23])
+        self.disText(pdStrs[9])
+        self.disText(pdStrs[22])
         self.yes["text"] = "Save"
         self.yes["command"] = self.grabEmail
         self.yes["state"] = ACTIVE
@@ -669,7 +716,7 @@ class Application(Frame):
         
     def ans_noAsA(self):
         #no, don't remove email question for next time.
-        self.disText(ptDict[7])
+        self.disText(pdStrs[6])
 
         self.yes["state"] = DISABLED
         self.no["state"] = DISABLED
@@ -686,7 +733,7 @@ class Application(Frame):
         userpref = open("userpref.csv",'w')
         userpref.write("e:no")
         userpref.close()
-        self.disText(ptDict[6])
+        self.disText(pdStrs[6])
 
         self.yes["state"] = DISABLED
         self.no["state"] = DISABLED
@@ -699,7 +746,7 @@ class Application(Frame):
         
     def ans_noPaD(self):
         #you answer no, you have not changed your patches
-        self.disText(ptDict[9])
+        self.disText(pdStrs[8])
         self.disPatches()
         self.disText(self.s.getReminder())
 
@@ -709,7 +756,7 @@ class Application(Frame):
         #for optimize mode, display where to put the new patch
         if self.s.optimized == True:
             self.disText(self.s.newPatchDis(self.s.makeNewPatch()))
-        self.disText(ptDict[1])
+        self.disText(pdStrs[0])
 
     def ans_yesPaD(self):
         #you answer yes, you have changed your patches
@@ -728,23 +775,23 @@ class Application(Frame):
             self.locnlor_entry_prompt()
 
     def ans_noOm(self):
-        self.disText(ptDict[39])
+        self.disText(pdStrs[38])
         self.patchAppStart()
 
     def ans_noCbl(self):
-        self.disText(ptDict[7])
+        self.disText(pdStrs[6])
         self.patchAppStart()
 
     def emailsend(self):
         if type(self.s.email) == str:
             self.s.emailSchedule()
-            self.disText(ptDict[8])
+            self.disText(pdStrs[7])
 
     def backlog_count(self):
         #display the count in the backlog
         #display the start date of the first patch
-        self.disText(ptDict[24])
-        self.disText(ptDict[40])
+        self.disText(pdStrs[23])
+        self.disText(pdStrs[39])
         
         # of only 1 patch changed, omit the 'es' on patches
         if self.s.no_pat_ever > 1:
@@ -767,8 +814,8 @@ class Application(Frame):
 
        #change the patch and update app  
         self.s.changePatch(newPatch)
-        self.disText(ptDict[15])
-        self.disText(ptDict[9])
+        self.disText(pdStrs[14])
+        self.disText(pdStrs[8])
         self.disPatches()
 
         self.yes["state"] = DISABLED
@@ -780,23 +827,21 @@ class Application(Frame):
 
         #change the patch and update app  
         self.s.changePatch(newPatch)
-        self.disText(ptDict[15])
-        self.disText(ptDict[9])
+        self.disText(pdStrs[14])
+        self.disText(pdStrs[8])
         self.disPatches()
 
         self.yes["state"] = DISABLED
         self.no["state"] = DISABLED
 
     def notPatchDay(self):
-        #give some space
-        self.disText(ptDict[24])
         
         #for the Not Patch Day button!
         #...an extra space before the display
         self.yes["state"] = DISABLED
         self.no["state"] = DISABLED
         if self.patchDis == False:
-            self.disText(ptDict[9])
+            self.disText(pdStrs[8])
 
             self.disPatches()
             
@@ -807,9 +852,7 @@ class Application(Frame):
 
             self.patchDis = True
         
-    def patchDay(self):
-        #give some space
-        self.disText(ptDict[24])        
+    def patchDay(self):        
         
         #for the Patch Day button!
         self.disText(self.s.getReminder())
@@ -818,7 +861,7 @@ class Application(Frame):
         if self.s.optimized == True:
             self.disText(self.s.newPatchDis(self.s.makeNewPatch()),sB=False)
 
-        self.disText(ptDict[1],sB=False)
+        self.disText(pdStrs[0],sB=False)
         
         #make yes and no buttons appropriate
         self.yes["command"] = self.ans_yesPaD 
@@ -855,24 +898,24 @@ if app.ready == False:
 else:
     try:
         if type(app.s.email) != str and app.getUserPref() == None:
-            i = randint(1,8)
-            app.disText(starDict[i],sB=False)
+            i = randint(0,7)
+            app.disText(welcomeStrs[i],sB=False)
             app.email_trouble()
     except AttributeError:
             if app.getUserPref() == None:
-                i = randint(1,8)
-                app.disText(starDict[i],sB=False)
+                i = randint(0,7)
+                app.disText(welcomeStrs[i],sB=False)
                 app.email_trouble()
 
 #this is the main display loop
 try:
     if app.getUserPref() == "e:no" or type(app.s.email) == str:
         app.patchAppStart()
-        i = randint(1,8)
-        app.disText(starDict[i],sB=False)
+        i = randint(0,7)
+        app.disText(welcomeStrs[i],sB=False)
 except AttributeError:
     if app.getUserPref() == "e:no":
         app.patchAppStart()
-        i = randint(1,8)
-        app.disText(starDict[i],sB=False)        
+        i = randint(0,7)
+        app.disText(welcomeStrs[i],sB=False)        
 app.mainloop()
