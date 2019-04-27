@@ -10,18 +10,15 @@ from win32com.client import Dispatch, constants
 class Patch:
 
     def __init__(self, loc, LoR, day, time, year, month, dayN):
-
-        #the time and the day are automatically formatted during init
-        #however, they need to be 'set' for past patches
         self.location = loc
 
-        #LoR mean "Left or Right"
+        # "Left or Right"
         self.LoR = LoR
         
         self.day = day
         self.time = time
 
-        #attributes for using 'date' object
+        # Date
         self.year = int(year)
         self.month = int(month)
         self.dayN = int(dayN)
@@ -61,7 +58,6 @@ class Patch:
         self.LoR = lor
 
     def setTime(self,time):
-        #please enter exact format: a str object like '04:41'
         self.time = time
 
     def setDayN(self,dayN):
@@ -90,61 +86,57 @@ class Patch:
         " on " + day + ' at ' + time + '.')
         return(p1 + p2)
     
-
-#Psched = Patch Schedule
 class Psched:
 
     #initialize the schedule with current patches on skin
     def __init__(self):
 
-        #looks at CSV for current data
+        # Look at csv
         try:
             self.datafile = open("patchdata.csv",'r')
             self.datafile.close()
             
-        #if not data exists, make a new blank document
+        # If not exists, make a new doc
         except FileNotFoundError:
             self.datafile = open("patchdata.csv",'w')
             self.datafile.close()
 
-        #make the Dfilelines and current data
+        # Make the Dfilelines and current data
         self.dfilelines = self.makeDfilelines()
         self.currentData = self.getCurrentData()
 
-        #list of patches, from input
+        # List of patches, from input
         self.patchList = []
         self.makePatchList()
         
-        #number of patches user has on
+        # Number of patches
         self.no_of_pat = len(self.patchList)
 
-        #the email is located at the end of the patchdata file
+        # The email is located at the end of the patchdata file
         self.findEmail()
 
-        #number of patches the user has used ever
+        # Number of patches the user has used ever
         self.backlog_init()
 
-        #get start date from backlog
+        # Get start date from backlog
         try:
             self.startdate = self.getStartDate()
         except IndexError:
             self.startdate = None
 
-        #date of when changed first patch
+        # Date of when changed first patch
         try:
             self.startdate = self.getStartDate()
         except IndexError:
             self.startdate = None
 
-        #convert patches to readable format
+        # Convert patches to readable format
         self.patches = self.getPatches()
 
-        #optimizer attributes
+        # Optimizer attributes
         try:
             optfile = open("optfile.csv",'r')
             
-        #if file not found, make blank one
-        #start off Optimize is off
         except FileNotFoundError:
             optfile = open("optfile.csv",'w')
             optfile.write('0')
@@ -156,8 +148,8 @@ class Psched:
             self.optimized = False
         optfile.close()
 
-        #next patch change date/time
-        #on start up, patchdata is empty, so it is yet to build..
+        # Next patch change date/time
+        # On start up, patchdata is empty, so it is yet to build..
         try:
             self.reminder = self.patchList[0].halfweek_plus()
         except IndexError:
@@ -179,7 +171,7 @@ class Psched:
         return self.reminder
 
     def findEmail(self):
-        #the email is located at the end of the patchdata file
+        # The email is located at the end of the patchdata file
         try:
             datafile = open("patchdata.csv",'r')
             dlines = datafile.readlines()
@@ -230,7 +222,7 @@ class Psched:
             else:
                 dat += ch
 
-        #the last two data pieces are the month and the day
+        # The last two data pieces are the month and the day
         return bdisdata[5] + '-' + bdisdata[6]
 
     def makePatchList(self):
@@ -268,12 +260,12 @@ class Psched:
         return optiData
             
     def make_optiLoc(self):
-        #this is for three patches
-        #determines optimum location by picking the one with less patches
+        # This is for three patches
+        # Determines optimum location by picking the one with less patches
         if self.optimized == True:
 
             if self.no_of_pat % 2 != 0:
-            #this version works only if you have an odd number of patches
+            # This version works only if you have an odd number of patches
                 ldict = {'Stom':0,'Butt':0}
                 for patch in self.patchList:
                     ldict[patch.getLocation()] += 1
@@ -285,7 +277,7 @@ class Psched:
                     optiLoc = 'Stom'
 
             if self.no_of_pat % 2 == 0:
-            #if even number, 'optimize' merely switches opposite attributes
+            # If even number, 'optimize' merely switches opposite attributes
                 changePatch = self.patchList[0]
                 if str(changePatch)[2] == 'S':
                     optiLoc = 'Butt'
@@ -296,8 +288,8 @@ class Psched:
         return optiLoc
 
     def make_optiLoR(self):
-        #this is for three patches
-        #determines optimum Left or Right by choosing less popular
+        # This is for three patches
+        # Determines optimum Left or Right by choosing less popular
         if self.optimized == True:
             
             if self.no_of_pat == 1 or self.no_of_pat == 3:            
@@ -313,7 +305,7 @@ class Psched:
                     optiLoR = 'L'
 
             if self.no_of_pat == 2 or self.no_of_pat == 4:
-            #if even number, 'optimize' merely switches opposite attributes
+            # If even number, 'optimize' merely switches opposite attributes
                 changePatch = self.patchList[0]
                 if str(changePatch)[0] == 'L':
                     optiLoR = 'R'
@@ -327,7 +319,7 @@ class Psched:
         now = datetime.datetime.now()
         date = datetime.date.today()
         
-        #automatically sets time and day as current
+        # Automatically sets time and day as current
         day = calendar.day_name[date.weekday()]
         time = str(now)[11:16]
 
