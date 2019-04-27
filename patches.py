@@ -9,7 +9,7 @@ from win32com.client import Dispatch, constants
 
 class Patch:
 
-    def __init__(self,loc,LoR,day,time,year,month,dayN):
+    def __init__(self, loc, LoR, day, time, year, month, dayN):
 
         #the time and the day are automatically formatted during init
         #however, they need to be 'set' for past patches
